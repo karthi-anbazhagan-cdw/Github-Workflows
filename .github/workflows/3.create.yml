@@ -1,8 +1,0 @@
-name: Create Trigger
-on:
-  create:
-jobs:
-  create:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Create Event Data:" && echo '${{ toJson(github.event) }}'
