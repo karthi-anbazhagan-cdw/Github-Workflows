@@ -1,0 +1,13 @@
+name: Manual Trigger
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy"
+        required: true
+        default: "staging"
+jobs:
+  manual:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow Dispatch Event Data:" && echo '${{ toJson(github.event) }}'
