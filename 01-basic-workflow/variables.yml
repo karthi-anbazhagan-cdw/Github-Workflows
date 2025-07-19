@@ -1,7 +1,6 @@
 name: Environment Variables and Secrets
 on: 
   push:
-  workflow_dispatch:
 
 env:
   APP_ENV: production
@@ -42,10 +41,27 @@ jobs:
           echo "Actor: $GITHUB_ACTOR"
           echo "Runner OS: $RUNNER_OS"
       
-      - name: Using Secrets
+      - name: Using Repository Secrets
+        env:
+          API_KEY: ${{ secrets.API_KEY || 'demo-repo-api-key' }}
+        run: |
+          echo "=== REPOSITORY-LEVEL SECRETS ==="
+          echo "API_KEY: $API_KEY"
+          
+      - name: Using Staging secrets
+        if: ${{ github.ref_name == 'develop' }}
+        environment: staging
         env:
           API_KEY: ${{ secrets.API_KEY || 'demo-api-key' }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD || 'demo-password' }}
         run: |
+          echo "=== STAGING ENVIRONMENT SECRETS ==="
           echo "API_KEY: $API_KEY"
-          echo "DB_PASSWORD: $DB_PASSWORD"
+      
+      - name: Using Prod secrets
+        if: ${{ github.ref_name == 'main' }}
+        environment: production
+        env:
+          API_KEY: ${{ secrets.API_KEY || 'demo-api-key' }}
+        run: |
+          echo "=== PRODUCTION ENVIRONMENT SECRETS ==="
+          echo "API_KEY: $API_KEY"
