@@ -21,12 +21,12 @@ jobs:
           echo "APP_NAME: $APP_NAME"
       
       - name: Job Environment Variables
-        run: echo "DATABASE_URL: $DATABASE_URL"
+        run: echo "DATABASE_URL- $DATABASE_URL"
       
       - name: Step Environment Variables
         env:
           DATABASE_URL: mongodb://localhost:27017/step_db
-        run: echo "DATABASE_URL: $DATABASE_URL"
+        run: echo "DATABASE_URL- $DATABASE_URL"
       
       - name: Dynamic Environment Variables
         run: |
