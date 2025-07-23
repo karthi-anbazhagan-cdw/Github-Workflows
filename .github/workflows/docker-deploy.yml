@@ -5,6 +5,7 @@ on:
     paths:
       - "04-docker/**"
     branches: [main]
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
