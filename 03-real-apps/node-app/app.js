@@ -22,7 +22,7 @@ app.get("/greet", (req, res) => {
 
 app.get("/greet/:name", (req, res) => {
   const name = req.params.name;
-  const greeting = name ? `Hello, ${name}!` : "Hello, World!";
+  const greeting = name ? `Hello, ${name}!` : "Hello, user!";
   res.json({ greeting });
 });
 
