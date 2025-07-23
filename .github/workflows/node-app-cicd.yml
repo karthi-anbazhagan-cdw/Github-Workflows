@@ -1,0 +1,55 @@
+name: Node.js Express App CI/CD
+
+on:
+  push:
+    paths:
+      - "03-real-apps/node-app/**"
+    branches: [main, develop]
+  pull_request:
+    paths:
+      - "03-real-apps/node-app/**"
+    branches: [main]
+
+env:
+  NODE_VERSION: "18"
+  APP_PATH: "03-real-apps/node-app"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: ${{ env.APP_PATH }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ env.APP_PATH }}
+        run: npm install
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: ${{ env.APP_PATH }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ env.APP_PATH }}
+        run: npm install
+
+      - name: Run tests
+        working-directory: ${{ env.APP_PATH }}
+        run: npm test

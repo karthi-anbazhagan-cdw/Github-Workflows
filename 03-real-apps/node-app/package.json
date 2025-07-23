@@ -1,0 +1,30 @@
+{
+  "name": "node-app-demo",
+  "version": "1.0.0",
+  "description": "Simple Node.js Express app for CI/CD demonstration",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "supertest": "^6.3.3",
+    "eslint": "^8.46.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "demo",
+    "ci-cd"
+  ],
+  "author": "Demo Developer",
+  "license": "MIT"
+}

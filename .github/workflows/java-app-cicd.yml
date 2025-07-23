@@ -1,0 +1,51 @@
+name: Java Spark App CI/CD
+
+on:
+  push:
+    paths:
+      - "03-real-apps/java-app/**"
+    branches: [main, develop]
+  pull_request:
+    paths:
+      - "03-real-apps/java-app/**"
+    branches: [main]
+
+env:
+  JAVA_VERSION: "11"
+  APP_PATH: "03-real-apps/java-app"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: "corretto"
+          cache: maven
+
+      - name: Build with Maven
+        working-directory: ${{ env.APP_PATH }}
+        run: ./mvnw compile
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: "corretto"
+          cache: maven
+
+      - name: Run tests
+        working-directory: ${{ env.APP_PATH }}
+        run: ./mvnw test
