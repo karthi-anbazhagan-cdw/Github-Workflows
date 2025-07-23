@@ -1,12 +1,14 @@
 FROM amazoncorretto:11-alpine
 
+RUN apk add --no-cache maven
+
 WORKDIR /app
 
 # Copy everything
 COPY . .
 
 # Build the application
-RUN ./mvnw package -DskipTests
+RUN mvn package -DskipTests
 
 EXPOSE 4567
 

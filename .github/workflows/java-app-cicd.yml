@@ -30,7 +30,7 @@ jobs:
 
       - name: Build with Maven
         working-directory: ${{ env.APP_PATH }}
-        run: ./mvnw compile
+        run: mvn compile
 
   test:
     needs: build
@@ -48,4 +48,4 @@ jobs:
 
       - name: Run tests
         working-directory: ${{ env.APP_PATH }}
-        run: ./mvnw test
+        run: mvn test
