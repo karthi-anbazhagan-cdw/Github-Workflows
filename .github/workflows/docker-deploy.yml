@@ -8,8 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/fastapi-app
-  DOCKERHUB_IMAGE: fastapi-app
+  IMAGE_NAME: fastapi-app
 
 jobs:
   test:
@@ -55,8 +54,9 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ./04-docker
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          IMAGE_NAME_LOWER=$(echo "${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
+          docker build -t ${IMAGE_NAME_LOWER}:latest ./04-docker
+          docker push ${IMAGE_NAME_LOWER}:latest
 
   dockerhub:
     needs: test
@@ -74,5 +74,5 @@ jobs:
 
       - name: Build and push to Docker Hub
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE }}:latest ./04-docker
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE }}:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest ./04-docker
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
