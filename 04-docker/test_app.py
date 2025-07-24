@@ -23,7 +23,7 @@ def test_greet_endpoint():
     response = client.get("/greet")
     assert response.status_code == 200
     data = response.json()
-    assert data["greeting"] == "Hello, World!"
+    assert data["greeting"] == "Hello, World!!!"
     
     response = client.get("/greet/GitHub")
     assert response.status_code == 200
