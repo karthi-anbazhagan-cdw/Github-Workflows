@@ -7,7 +7,7 @@ describe("Express App Tests", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("Simple Node.js Express App");
-    expect(response.body.greeting).toBe("Hello, GitHub Actions!!!");
+    expect(response.body.greeting).toBe("Hello, GitHub Actions!");
   });
 
   test("GET /health should return healthy status", async () => {
