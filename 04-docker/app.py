@@ -20,7 +20,7 @@ def health():
 def greet_endpoint(name: str = "World"):
     """Greeting endpoint"""
     if not name or name.strip() == "":
-        greeting = "Hello, World!!!"
+        greeting = "Hello, World!"
     else:
         greeting = f"Hello, {name}!"
     return {"greeting": greeting}
